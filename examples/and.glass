@@ -1,7 +1,7 @@
 
-1[\   
-1[\_\ 1                 INPUT 1
-    | n   
-1[/\$R\__________#      INPUT 2 (AND OUTPUT)
-1[/\/ 
-   
+   1[\               
+0[___\_\ 1         INPUT 1
+       | n          
+0[___/_$R\____#    INPUT 2 (AND OUTPUT)
+   1[/    
+      

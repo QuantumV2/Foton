@@ -1,5 +1,6 @@
 import copy
 from colorama import Fore, Back, Style
+import time
 class Vector2i:
 
     def __init__(self, x:int = 0, y:int = 0):
@@ -111,19 +112,23 @@ class Interpreter:
             for ray in rays_copy:
                 ray['pos'] = Vector2i(ray['pos'].x % len(self.code), ray['pos'].y % len(self.code[0]))
                 inst = self.code[ray['pos'].x][ray['pos'].y]
-                #print(inst, ray)
+                
+                #print(inst)
                 if inst in self.commands:
                     self.commands[inst](ray)
 
                 #check for collision with other rays
                 for r in rays_copy:
-                    if ((ray['pos'] + ray['dir']) == r['pos']) and r in self.rays and ray in self.rays:
-                        self.rays.remove(r)
+                    if ((ray['pos'] + ray['dir']) == r['pos']) and r in self.rays and ray in self.rays :
+                        if self.code[r['pos'].x][r['pos'].y] not in "$":
+                            self.rays.remove(r)
                         self.rays.remove(ray)
                 ray['pos'] += ray['dir']
             self.check_detectors()
             self.print_visual()
+            #time.sleep(0.1)
     def do_emitter(self, ray):
+        
         if ray in self.rays:
             self.rays.remove(ray)
         ray = {"pos":Vector2i(ray['pos'].x, ray['pos'].y), 'dir': Vector2i(1,0)}
@@ -176,6 +181,7 @@ class Interpreter:
     def do_back_slash(self, ray):
         ray['dir'] = Vector2i(ray['dir'].y, ray['dir'].x)
     def do_destroy(self,ray):
+        
         self.rays.remove(ray)
     def do_split(self, ray):
         original_dir = ray['dir']
