@@ -42,7 +42,7 @@ class Interpreter:
             "!": self.do_skip,
         }
     def print_visual(self):
-        print(chr(27) + "[2J")
+        #print(chr(27) + "[2J")
         newcode = copy.deepcopy(self.code)
         for ray in self.rays:
             newcode[ray['pos'].x][ray['pos'].y] = Fore.YELLOW+"-"+Style.RESET_ALL
